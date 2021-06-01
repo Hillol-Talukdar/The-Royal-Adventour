@@ -2,7 +2,24 @@ const Tour = require("../models/tour");
 
 exports.getAllTours = async (req, res) => {
     try {
-        const tours = await Tour.find();
+        const queryObj = { ...req.query };
+        const excludedFields = ["page", "sort", "limit", "fields"];
+
+        excludedFields.forEach((el) => delete queryObj[el]);
+
+        // replcaing all lte with $lte in the url for querying
+        // \b \b is for exact match..
+        // /g for all matched strings
+        let queryStr = JSON.stringify(queryObj);
+        queryStr = queryStr.replace(
+            /\b(gte|gt|lte|lt)\b/g,
+            (match) => `$${match}`
+        );
+
+        // const tours = await Tour.find(queryObj);
+        const query = Tour.find(JSON.parse(queryStr));
+        const tours = await query;
+
         res.status(200).json({
             status: "Success",
             result: tours.length,
