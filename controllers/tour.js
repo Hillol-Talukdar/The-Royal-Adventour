@@ -1,57 +1,23 @@
 const Tour = require("../models/tour");
+const APIFeatures = require("../utils/apiFeatures");
+
+exports.aliasTopTours = (req, res, next) => {
+    req.query.limit = "5";
+    req.query.sort = "-ratingsAverage,price";
+    req.query.fields = "name,price,ratingsAverage,summary,difficulty";
+    next();
+};
 
 exports.getAllTours = async (req, res) => {
     try {
-        const queryObj = { ...req.query };
-        const excludedFields = ["page", "sort", "limit", "fields"];
-
-        excludedFields.forEach((el) => delete queryObj[el]);
-
-        // replcaing all lte with $lte in the url for querying
-        // \b \b is for exact match..
-        // /g for all matched strings
-        let queryStr = JSON.stringify(queryObj);
-        queryStr = queryStr.replace(
-            /\b(gte|gt|lte|lt)\b/g,
-            (match) => `$${match}`
-        );
-
-        let query = Tour.find(JSON.parse(queryStr));
-
-        // SORTING
-        if (req.query.sort) {
-            // mongodb sort quert is sort('price duration rating')
-            // but in url it is with coma(,)
-            const sortBy = req.query.sort.split(",").join(" ");
-            query = query.sort(sortBy);
-        } else {
-            query = query.sort("-createdAt"); // - stand for latest will be showed first
-        }
-
-        // FIELD LIMITING
-        if (req.query.fields) {
-            const fields = req.query.fields.split(",").join(" ");
-            query = query.select(fields);
-        } else {
-            query = query.select(""); // here - stands for exluding fields
-        }
-
-        // PAGINATION
-        const page = req.query.page * 1 || 1;
-        const limit = req.query.limit * 1 || 100;
-        const skip = (page - 1) * limit;
-
-        query = query.skip(skip).limit(limit);
-
-        if (req.query.page) {
-            const numTour = await Tour.countDocuments();
-            if (numTour <= skip) {
-                throw new Error("This page does not exits");
-            }
-        }
-
         // EXECUTE QUERY
-        const tours = await query;
+        const features = new APIFeatures(Tour.find(), req.query)
+            .filter()
+            .sort()
+            .limitFields()
+            .pagination();
+
+        const tours = await features.query;
 
         res.status(200).json({
             status: "Success",
@@ -61,6 +27,7 @@ exports.getAllTours = async (req, res) => {
             },
         });
     } catch (error) {
+        // console.log(error);
         res.status(400).json({
             status: "Error Occured",
             message: error,
