@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const slugify = require("slugify");
 
 const tourSchema = new mongoose.Schema(
     {
@@ -8,6 +9,7 @@ const tourSchema = new mongoose.Schema(
             unique: true,
             trim: true,
         },
+        slug: String,
         duration: {
             type: Number,
             required: [true, "A tour must have a duration"],
@@ -48,8 +50,41 @@ const tourSchema = new mongoose.Schema(
         },
         images: [String],
         startDates: [Date],
+        secretTour: {
+            type: Boolean,
+            default: false,
+        },
     },
-    { timestamps: true }
+    {
+        timestamps: true,
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true },
+    }
 );
+
+tourSchema.virtual("durationWeeks").get(function () {
+    return this.duration / 7;
+});
+
+// DOCUMENT MIDDLEWARE. Runs before .create(), .save()
+tourSchema.pre("save", function (next) {
+    this.slug = slugify(this.name, { lower: true });
+    next();
+});
+
+// QUERY MIDDLEWARE. /^abc/ means queary starts with abc
+tourSchema.pre(/^find/, function (next) {
+    // Here we hid secret tours
+    this.find({ secretTour: { $ne: true } });
+    next();
+});
+
+// AGGREGATION MIDDLEWARE
+tourSchema.pre("aggregate", function (next) {
+    // unshift to add ele to array
+    // Here we hide all secTour doc for any route
+    this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
+    next();
+});
 
 module.exports = mongoose.model("Tour", tourSchema);
