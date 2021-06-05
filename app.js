@@ -1,6 +1,8 @@
 const express = require("express");
 const morgan = require("morgan");
 const fs = require("fs");
+const appError = require("./utils/appError");
+const globalErrorHandler = require("./controllers/errorController");
 
 const app = express();
 
@@ -12,10 +14,9 @@ fs.readdirSync("./routes").map((rt) =>
 );
 
 app.all("*", (req, res, next) => {
-    res.status(404).json({
-        status: "fail",
-        message: `Cannot find ${req.originalUrl} on this server`,
-    });
+    next(new appError(`Cannot find ${req.originalUrl} on this server`, 404));
 });
+
+app.use(globalErrorHandler);
 
 module.exports = app;
