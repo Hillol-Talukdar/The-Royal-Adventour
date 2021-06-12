@@ -19,7 +19,7 @@ const {
 router.post("/user/signup", signup);
 router.post("/user/login", login);
 router.post("/user/forgotPassword", forgotPassword);
-router.post("/user/resetPassword", resetPassword);
+router.patch("/user/resetPassword/:token", resetPassword);
 router.route("/user").get(getAllUsers).post(createUser);
 router.route("/user/:id").get(getUser).patch(updateUser).delete(deleteUser);
 
