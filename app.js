@@ -7,6 +7,7 @@ const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
+const hpp = require("hpp");
 
 const app = express();
 
@@ -35,6 +36,21 @@ app.use(mongoSanitize());
 
 // Data sanitization against XSS
 app.use(xss());
+
+//Prevent parameter pollution
+app.use(
+    hpp({
+        //allows duplicates fields for the array in url
+        whitelist: [
+            "duration",
+            "ratingsQuantity",
+            "ratingsAverage",
+            "maxGroupSize",
+            "difficulty",
+            "price",
+        ],
+    })
+);
 
 fs.readdirSync("./routes").map((rt) =>
     app.use("/api", require("./routes/" + rt))
