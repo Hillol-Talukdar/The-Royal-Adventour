@@ -13,7 +13,8 @@ const {
 } = require("../controllers/tour");
 
 const { protect, restrictTo } = require("../controllers/auth");
-// const { protect } = require("../controllers/auth");
+
+const { getAllReviews, createReviews } = require("../controllers/review");
 
 router.route("/tour/top-5-cheap").get(aliasTopTours, getAllTours);
 router.route("/tour/tour-stats").get(getTourStats);
@@ -25,5 +26,9 @@ router
     .patch(updateTour)
     // .delete(protect, deleteTour);
     .delete(protect, restrictTo("admin", "lead-guide"), deleteTour);
+
+router
+    .route("/tour/:tourId/review")
+    .post(protect, restrictTo("user"), createReviews);
 
 module.exports = router;
