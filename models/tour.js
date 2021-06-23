@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
-const User = require("./user");
+// const User = require("./user");
 
 const tourSchema = new mongoose.Schema(
     {
