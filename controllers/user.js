@@ -34,9 +34,7 @@ exports.createUser = (req, res) => {
     //
 };
 
-exports.updateUser = (req, res) => {
-    //
-};
+exports.updateUser = factory.updateOne(User);
 
 exports.updateMe = catchAsync(async (req, res, next) => {
     if (req.body.password || req.body.confirmPassword) {

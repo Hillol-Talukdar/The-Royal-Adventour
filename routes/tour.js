@@ -15,7 +15,7 @@ const {
 
 const { protect, restrictTo } = require("../controllers/auth");
 
-// const { getAllReviews, createReviews } = require("../controllers/review");
+// const { getAllReviews, createReview } = require("../controllers/review");
 
 router.use("/tour/:tourId", reviewRouter);
 
@@ -31,6 +31,6 @@ router
 
 // router
 //     .route("/tour/:tourId/review")
-//     .post(protect, restrictTo("user"), createReviews);
+//     .post(protect, restrictTo("user"), createReview);
 
 module.exports = router;
