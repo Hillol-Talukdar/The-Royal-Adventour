@@ -9,6 +9,7 @@ const {
     deleteUser,
     updateMe,
     deleteMe,
+    getMe,
 } = require("../controllers/user");
 
 const {
@@ -27,6 +28,7 @@ router.post("/user/forgotPassword", forgotPassword);
 router.patch("/user/updatePassword", protect, updatePassword);
 router.patch("/user/resetPassword/:token", resetPassword);
 
+router.get("/user/me", protect, getMe, getUser);
 router.patch("/user/updateMe", protect, updateMe);
 router.delete("/user/deleteMe", protect, deleteMe);
 
