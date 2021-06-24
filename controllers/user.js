@@ -14,24 +14,12 @@ const filterObj = (obj, ...allowedFields) => {
     return newObj;
 };
 
-exports.getAllUsers = catchAsync(async (req, res) => {
-    const users = await User.find();
+exports.getAllUsers = factory.getAll(User);
 
-    res.status(200).json({
-        status: "Success",
-        result: users.length,
-        data: {
-            users,
-        },
-    });
-});
+exports.getUser = factory.getOne(User);
 
-exports.getUser = (req, res) => {
-    //
-};
-
-exports.createUser = (req, res) => {
-    //
+exports.createUser = (req, res, next) => {
+    return next(new AppError("Please use /signup instead of this URL", 500));
 };
 
 exports.updateUser = factory.updateOne(User);
