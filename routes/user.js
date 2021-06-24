@@ -19,18 +19,24 @@ const {
     resetPassword,
     updatePassword,
     protect,
+    restrictTo,
 } = require("../controllers/auth");
 
 router.post("/user/signup", signup);
 router.post("/user/login", login);
-
 router.post("/user/forgotPassword", forgotPassword);
-router.patch("/user/updatePassword", protect, updatePassword);
 router.patch("/user/resetPassword/:token", resetPassword);
 
-router.get("/user/me", protect, getMe, getUser);
-router.patch("/user/updateMe", protect, updateMe);
-router.delete("/user/deleteMe", protect, deleteMe);
+//every routes from bellow will be protected
+router.use(protect);
+
+router.get("/user/me", getMe, getUser);
+router.patch("/user/updatePassword", updatePassword);
+router.patch("/user/updateMe", updateMe);
+router.delete("/user/deleteMe", deleteMe);
+
+//every routes from bellow will be restricted to Admin
+router.use(restrictTo("admin"));
 
 router.route("/user").get(getAllUsers).post(createUser);
 router.route("/user/:id").get(getUser).patch(updateUser).delete(deleteUser);

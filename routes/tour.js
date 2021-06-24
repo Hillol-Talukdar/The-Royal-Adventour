@@ -15,22 +15,24 @@ const {
 
 const { protect, restrictTo } = require("../controllers/auth");
 
-// const { getAllReviews, createReview } = require("../controllers/review");
-
 router.use("/tour/:tourId", reviewRouter);
 
 router.route("/tour/top-5-cheap").get(aliasTopTours, getAllTours);
 router.route("/tour/tour-stats").get(getTourStats);
-router.route("/tour/monthly-plan/:year").get(getMonthlyPlan);
-router.route("/tour").get(protect, getAllTours).post(createTour);
+
+router
+    .route("/tour/monthly-plan/:year")
+    .get(protect, restrictTo("admin", "lead-guide", "guide"), getMonthlyPlan);
+
+router
+    .route("/tour")
+    .get(getAllTours)
+    .post(protect, restrictTo("admin", "lead-guide"), createTour);
+
 router
     .route("/tour/:id")
     .get(getTour)
-    .patch(updateTour)
+    .patch(protect, restrictTo("admin", "lead-guide"), updateTour)
     .delete(protect, restrictTo("admin", "lead-guide"), deleteTour);
-
-// router
-//     .route("/tour/:tourId/review")
-//     .post(protect, restrictTo("user"), createReview);
 
 module.exports = router;

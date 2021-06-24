@@ -17,7 +17,7 @@ const createSendTOken = (user, statusCode, res) => {
 
     const cookieOptions = {
         expires: new Date(
-            Date.now() + process.env.JWT_COOKIE_EXPIRES_IN + 24 * 6 * 60 * 1000
+            Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
         ),
         // secure: true,
         httpOnly: true,
@@ -42,13 +42,6 @@ const createSendTOken = (user, statusCode, res) => {
 
 exports.signup = catchAsync(async (req, res, next) => {
     const newUser = await User.create(req.body);
-
-    // const newUser = await User.create({
-    //     name: req.body.name,
-    //     email: req.body.email,
-    //     password: req.body.password,
-    //     confirmPassword: req.body.confirmPassword,
-    // });
 
     createSendTOken(newUser, 201, res);
 });
