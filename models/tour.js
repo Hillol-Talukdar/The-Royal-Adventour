@@ -166,11 +166,11 @@ tourSchema.pre(/^find/, function (next) {
 });
 
 // AGGREGATION MIDDLEWARE
-tourSchema.pre("aggregate", function (next) {
-    // unshift to add ele to array
-    // Here we hide all secTour doc for any route
-    this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
-    next();
-});
+// tourSchema.pre("aggregate", function (next) {
+//     // unshift to add ele to array
+//     // Here we hide all secTour doc for any route
+//     this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
+//     next();
+// });
 
 module.exports = mongoose.model("Tour", tourSchema);
