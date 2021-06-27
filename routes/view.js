@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-const { getHome, getTour } = require("../controllers/view");
+const { getOverview, getTour } = require("../controllers/view");
 
-router.get("/", getHome);
+router.get("/", getOverview);
 
 router.get("/tour", getTour);
 
