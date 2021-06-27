@@ -15,6 +15,9 @@ const app = express();
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 
+// static files
+app.use(express.static(path.join(__dirname, "public")));
+
 // GLOBAL MIDDLEWARES
 // Set security HTTP headers
 app.use(helmet());

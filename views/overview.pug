@@ -1,17 +1,24 @@
 extends base
 
 block content
-
-    <div class="row row-cols-1 row-cols-md-3 g-4 mx-5 mb-4 mt-2">
+    .row.row-cols-1.row-cols-md-3.g-4.mx-5.mb-4.mt-2
         each tour in tours
-            <div class='col'>
-                <div class="card" >
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-    </div>
+            .col
+                .card
+                    img.card-img-top(height= '200rem' src=`img/tours/${tour.imageCover}` alt=`${tour.name}`)
+                    .card-body
+                        h5.card-text= tour.name
+                        p.card-text=  `${tour.difficulty} ${tour.duration}-day tour`
+                        p.card-text= tour.summary
+                        .d-flex.justify-content-between 
+                            span= tour.startLocation.description
+                            span= `Starts ${tour.startDates[0].toLocaleString('en-us')}`
+                        .d-flex.justify-content-between 
+                            span= `${tour.location.length} stops`
+                            span= `Max ${tour.maxGroupSize} people`
+                    .card-footer
+                        .d-flex.justify-content-between
+                            span= `$${tour.price} per person` 
+                        .d-flex.justify-content-between
+                            span= `rating: ${tour.ratingsAverage} (${tour.ratingsQuantity} persons)` 
+                            a.btn.btn-primary(href=`/tour/${tour.slug}`) Deteils
