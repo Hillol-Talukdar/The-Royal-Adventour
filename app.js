@@ -8,8 +8,12 @@ const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const hpp = require("hpp");
+const path = require("path");
 
 const app = express();
+
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
 
 // GLOBAL MIDDLEWARES
 // Set security HTTP headers
@@ -51,6 +55,11 @@ app.use(
         ],
     })
 );
+
+// Routes
+app.get("/", (req, res) => {
+    res.status(200).render("base");
+});
 
 fs.readdirSync("./routes").map((rt) =>
     app.use("/api", require("./routes/" + rt))
