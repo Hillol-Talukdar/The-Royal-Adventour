@@ -65,6 +65,7 @@ fs.readdirSync("./routes").map((rt) =>
     app.use("/api", require("./routes/" + rt))
 );
 
+// Error handler
 app.all("*", (req, res, next) => {
     next(new appError(`Cannot find ${req.originalUrl} on this server`, 404));
 });
