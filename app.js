@@ -61,6 +61,18 @@ app.get("/", (req, res) => {
     res.status(200).render("base");
 });
 
+app.get("/overview", (req, res) => {
+    res.status(200).render("overview", {
+        title: "All tours",
+    });
+});
+
+app.get("/tour", (req, res) => {
+    res.status(200).render("tour", {
+        title: "Tour",
+    });
+});
+
 fs.readdirSync("./routes").map((rt) =>
     app.use("/api", require("./routes/" + rt))
 );
