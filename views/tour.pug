@@ -56,7 +56,7 @@ block content
                         br
                         h4 Your tour guides
                         each guide in tour.guides 
-                            //- img(src='...' alt="img/users/user-default.jpg")
+                            img.rounded(src=`/img/users/${guide.photo}`, width="40rem" height='40rem')
 
                             span.fs-5= guide.name
                             -if (guide.role === 'lead-guide')
