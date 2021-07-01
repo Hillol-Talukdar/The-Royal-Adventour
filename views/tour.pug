@@ -55,17 +55,52 @@ block content
                     .col
                         br
                         h4 Your tour guides
-                        each guide in tour.guides 
-                            img.rounded(src=`/img/users/${guide.photo}`, width="40rem" height='40rem')
-
+                        each guide in tour.guides
+                            img.rounded.m-2(src=`/img/users/${guide.photo}`, width="40rem" height='40rem')
+                            span &nbsp
                             span.fs-5= guide.name
                             -if (guide.role === 'lead-guide')
                                 span &nbsp (Lead guide)
                             -if (guide.role === 'guide')
                                 span &nbsp (Tour guide)
-                            <br>
+                            br
 
             .col
                 h4= `About ${tour.name} Tour`
-                p= tour.description
+                - const paragraphs = tour.description.split('\n')
+                each paragraph in paragraphs
+                    p= paragraph
 
+    .container
+        h4.mt-4 Images
+        .row.row-cols-1.row-cols-md-3.g-4.mb-2
+            each img, i in tour.images
+                .p-1.bd-highlight
+                    img.img-fluid(src=`/img/tours/${img}`, alt=`Tour ${i+1}`)
+
+    .container 
+        h4.mt-4 Reviews
+        .row.row-cols-1.row-cols-md-4.g-4.mb-4
+            each review in tour.reviews
+                .col
+                    .card(style="background-color: #dee2e6;")
+                        div
+                            img.rounded.m-2(src=`/img/users/${review.user.photo}`, width="40rem" height='40rem')
+                            span &nbsp
+                            span.card-text.fw-bold= review.user.name
+                        .card-body
+                            p.card-text= review.review
+                            - const currentRating = review.rating
+
+                            .text-center
+                                each star in [1,2,3,4,5]
+                                    if(star <= Math.round(currentRating))
+                                        span.text-primary
+                                            svg(xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16")
+                                                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                    else
+                                        svg(xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16")
+                                            <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+
+
+                                span= ` (${currentRating})`
