@@ -2,11 +2,11 @@ extends base
 
 block content
     h2.text-center.mt-5.mb-5 Login
-    form
+    form#login-form
         .container.mt-3.mb-5
             .mb-3
-                input.form-control.text-center(type="email" id="exampleFormControlInput1" placeholder="Email")
+                input.form-control.text-center#email(type="email" placeholder="Email" required)
             .mb-3
-                input.form-control.text-center(type="password" id="exampleInputPassword1" placeholder="Password")
+                input.form-control.text-center#password(type="password" placeholder="Password" required)
             .d-grid.col-5.mx-auto
                 button.btn.btn-primary(type="submit") Log in
