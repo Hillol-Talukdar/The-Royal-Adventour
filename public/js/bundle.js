@@ -8894,6 +8894,7 @@ var _login = require("./login");
 
 var _mapbox = require("./mapbox");
 
+// import { displayMap } from "./mapbox";
 // DOM elements
 // to prevent running in all pages
 var mapBox = document.getElementById("map");
@@ -8901,7 +8902,7 @@ var loginForm = document.querySelector("#login-form");
 var logoutBtn = document.querySelector("#logout"); // Delegation
 
 if (mapBox) {
-  var locations = JSON.parse(document.mapBox.dataset.locations); // console.log(locations);
+  var locations = JSON.parse(mapBox.dataset.locations); // console.log(locations);
 
   (0, _mapbox.displayMap)(locations);
 }

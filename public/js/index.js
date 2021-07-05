@@ -1,4 +1,5 @@
 import "@babel/polyfill";
+// import { displayMap } from "./mapbox";
 import { login, logout } from "./login";
 import { displayMap } from "./mapbox";
 
@@ -10,7 +11,7 @@ const logoutBtn = document.querySelector("#logout");
 
 // Delegation
 if (mapBox) {
-    const locations = JSON.parse(document.mapBox.dataset.locations);
+    const locations = JSON.parse(mapBox.dataset.locations);
     // console.log(locations);
 
     displayMap(locations);
