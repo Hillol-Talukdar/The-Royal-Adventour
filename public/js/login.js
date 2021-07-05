@@ -23,3 +23,18 @@ export const login = async (email, password) => {
         // console.log(error.response.data);
     }
 };
+
+export const logout = async () => {
+    try {
+        const res = await axios({
+            method: "GET",
+            url: "http://localhost:8000/api/user/logout",
+        });
+
+        if ((res.data.status = "success")) {
+            location.reload();
+        }
+    } catch (error) {
+        showAlert("danger", "Error logging out! Try again.");
+    }
+};
