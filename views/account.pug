@@ -1,7 +1,7 @@
 extends base
 
 block content
-    .container-fluid
+    .container-fluid.mt-2.mb-4
         .row 
             .col
                 br
@@ -19,6 +19,9 @@ block content
                     .mb-3
                         label.form-label(for="userEmail") Email address
                         input.form-control#userEmail(type="email", value=`${user.email}`, name='email', required)
+                    .mb-3
+                        img.rounded-circle(src=`/img/users/${user.photo}` width="70" height="70" )
+                        a.btn-text.mx-3(href='') Choose new photo
                     .d-grid.gap-2.col-6.mx-auto
                         button.btn.btn-primary(type="submit") Save settings
         .row
@@ -45,5 +48,3 @@ block content
                         input.form-control#confirmPassword(type="password", required)
                     .d-grid.gap-2.col-6.mx-auto
                         button.btn.btn-primary(type="submit") Save password
-
-    br
