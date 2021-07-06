@@ -4,4 +4,5 @@ export const showAlert = (type, message) => {
                     </div>`;
 
     document.querySelector(".navbar").insertAdjacentHTML("afterend", markup);
+    // document.querySelector("body").insertAdjacentHTML("afterbegin", markup);
 };
