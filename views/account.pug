@@ -1,4 +1,49 @@
 extends base
 
 block content
-    h2 my account
+    .container-fluid
+        .row 
+            .col
+                br
+                br
+                a.dropdown-item(href="#") Settings
+                a.dropdown-item(href="#") My reviews
+                a.dropdown-item(href="#") My bookings
+                a.dropdown-item(href="#") Billing
+            .col-10
+                h3.text-center my Account
+                form#userDataForm
+                    .mb-3
+                        label.form-label(for="userName") Name
+                        input.form-control#userName(type="text" value=`${user.name}`)
+                    .mb-3
+                        label.form-label(for="userEmail") Email address
+                        input.form-control#userEmail(type="email" value=`${user.email}`)
+                    .d-grid.gap-2.col-6.mx-auto
+                        button.btn.btn-primary(type="submit") Save settings
+        .row
+            .col
+                - if (user.role === 'admin')
+                    hr
+                    h4.text-center Admin Panenl
+                    a.dropdown-item(href="#") Manage Tours
+                    a.dropdown-item(href="#") Manage Users
+                    a.dropdown-item(href="#") Manage Bookings
+                    a.dropdown-item(href="#") Manage Reviews
+            .col-10
+                hr
+                h3.text-center Password Change
+                form#userPasswordForm
+                    .mb-3
+                        label.form-label(for="currentPassword") Current password
+                        input.form-control#currentPassword(type="password")
+                    .mb-3
+                        label.form-label(for="newPassword") New password
+                        input.form-control#newPassword(type="password")
+                    .mb-3
+                        label.form-label(for="confirmPassword") Confirm password
+                        input.form-control#confirmPassword(type="password")
+                    .d-grid.gap-2.col-6.mx-auto
+                        button.btn.btn-primary(type="submit") Save password
+
+    br
