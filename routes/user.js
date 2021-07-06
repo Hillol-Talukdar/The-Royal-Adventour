@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
-const upload = multer({ dest: "public/img/users" });
 
 const {
     getAllUsers,
@@ -12,6 +10,7 @@ const {
     updateMe,
     deleteMe,
     getMe,
+    uploadUserPhoto,
 } = require("../controllers/user");
 
 const {
@@ -36,7 +35,7 @@ router.use(protect);
 
 router.get("/user/me", getMe, getUser);
 router.patch("/user/updatePassword", updatePassword);
-router.patch("/user/updateMe", upload.single("photo"), updateMe);
+router.patch("/user/updateMe", uploadUserPhoto, updateMe);
 router.delete("/user/deleteMe", deleteMe);
 
 //every routes from bellow will be restricted to Admin
