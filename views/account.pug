@@ -12,13 +12,18 @@ block content
                 a.dropdown-item(href="#") Billing
             .col-10
                 h3.text-center my Account
-                form#userDataForm(action='/submit-user-data' method='POST')
+
+                //- Without API
+                //- form#userDataForm(action='/submit-user-data' method='POST') 
+
+                //- Wtih API 
+                form#userDataForm
                     .mb-3
-                        label.form-label(for="userName") Name
-                        input.form-control#userName(type="text", value=`${user.name}`, name='name', required)
+                        label.form-label(for="name") Name
+                        input.form-control#name(type="text", value=`${user.name}`, name='name', required)
                     .mb-3
-                        label.form-label(for="userEmail") Email address
-                        input.form-control#userEmail(type="email", value=`${user.email}`, name='email', required)
+                        label.form-label(for="email") Email address
+                        input.form-control#email(type="email", value=`${user.email}`, name='email', required)
                     .mb-3
                         img.rounded-circle(src=`/img/users/${user.photo}` width="70" height="70" )
                         a.btn-text.mx-3(href='') Choose new photo
