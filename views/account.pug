@@ -12,13 +12,13 @@ block content
                 a.dropdown-item(href="#") Billing
             .col-10
                 h3.text-center my Account
-                form#userDataForm
+                form#userDataForm(action='/submit-user-data' method='POST')
                     .mb-3
                         label.form-label(for="userName") Name
-                        input.form-control#userName(type="text" value=`${user.name}`)
+                        input.form-control#userName(type="text", value=`${user.name}`, name='name', required)
                     .mb-3
                         label.form-label(for="userEmail") Email address
-                        input.form-control#userEmail(type="email" value=`${user.email}`)
+                        input.form-control#userEmail(type="email", value=`${user.email}`, name='email', required)
                     .d-grid.gap-2.col-6.mx-auto
                         button.btn.btn-primary(type="submit") Save settings
         .row
@@ -36,13 +36,13 @@ block content
                 form#userPasswordForm
                     .mb-3
                         label.form-label(for="currentPassword") Current password
-                        input.form-control#currentPassword(type="password")
+                        input.form-control#currentPassword(type="password", required)
                     .mb-3
                         label.form-label(for="newPassword") New password
-                        input.form-control#newPassword(type="password")
+                        input.form-control#newPassword(type="password", required)
                     .mb-3
                         label.form-label(for="confirmPassword") Confirm password
-                        input.form-control#confirmPassword(type="password")
+                        input.form-control#confirmPassword(type="password", required)
                     .d-grid.gap-2.col-6.mx-auto
                         button.btn.btn-primary(type="submit") Save password
 
