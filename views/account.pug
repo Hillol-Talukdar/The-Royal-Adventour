@@ -14,7 +14,7 @@ block content
                 h3.text-center my Account
 
                 //- Without API
-                //- form#userDataForm(action='/submit-user-data' method='POST') 
+                //- form#userDataForm(action='/submit-user-data' method='POST' enctype='multipart/form-data') 
 
                 //- Wtih API 
                 form#userDataForm
@@ -26,7 +26,7 @@ block content
                         input.form-control#email(type="email", value=`${user.email}`, name='email', required)
                     .mb-3
                         img.rounded-circle(src=`/img/users/${user.photo}` width="70" height="70" )
-                        a.btn-text.mx-3(href='') Choose new photo
+                        input.form-control.mt-2#photo(type='file' accept='image/*' name='photo')
                     .d-grid.gap-2.col-6.mx-auto
                         button.btn.btn-primary(type="submit") Save settings
         .row
