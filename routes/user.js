@@ -11,6 +11,7 @@ const {
     deleteMe,
     getMe,
     uploadUserPhoto,
+    resizeUserPhoto,
 } = require("../controllers/user");
 
 const {
@@ -35,7 +36,7 @@ router.use(protect);
 
 router.get("/user/me", getMe, getUser);
 router.patch("/user/updatePassword", updatePassword);
-router.patch("/user/updateMe", uploadUserPhoto, updateMe);
+router.patch("/user/updateMe", uploadUserPhoto, resizeUserPhoto, updateMe);
 router.delete("/user/deleteMe", deleteMe);
 
 //every routes from bellow will be restricted to Admin

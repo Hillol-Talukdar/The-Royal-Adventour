@@ -3,16 +3,19 @@ const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 const factory = require("./handlerFactory");
 const multer = require("multer");
+const sharp = require("sharp");
 
-const multerStorage = multer.diskStorage({
-    destination: (req, file, callback) => {
-        callback(null, "public/img/users");
-    },
-    filename: (req, file, callback) => {
-        const extension = file.mimetype.split("/")[1];
-        callback(null, `user-${req.user.id}-${Date.now()}.${extension}`);
-    },
-});
+// const multerStorage = multer.diskStorage({
+//     destination: (req, file, callback) => {
+//         callback(null, "public/img/users");
+//     },
+//     filename: (req, file, callback) => {
+//         const extension = file.mimetype.split("/")[1];
+//         callback(null, `user-${req.user.id}-${Date.now()}.${extension}`);
+//     },
+// });
+
+const multerStorage = multer.memoryStorage(); // save image in memory
 
 const multerFilter = (req, file, callback) => {
     if (file.mimetype.startsWith("image")) {
@@ -31,6 +34,25 @@ const upload = multer({
 });
 
 exports.uploadUserPhoto = upload.single("photo");
+
+exports.resizeUserPhoto = (req, res, next) => {
+    if (!req.file) {
+        return next();
+    }
+
+    // save file name in req so that we can get excess in updateMe function
+    req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
+
+    // image which is in memory can be excess using buffer
+    // sharp will resize file and save it in exact location and format
+    sharp(req.file.buffer)
+        .resize(500, 500)
+        .toFormat("jpeg")
+        .jpeg({ quality: 90 })
+        .toFile(`public/img/users/${req.file.filename}`);
+
+    next();
+};
 
 const filterObj = (obj, ...allowedFields) => {
     const newObj = {};
