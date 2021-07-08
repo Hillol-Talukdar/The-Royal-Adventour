@@ -35,7 +35,7 @@ const upload = multer({
 
 exports.uploadUserPhoto = upload.single("photo");
 
-exports.resizeUserPhoto = (req, res, next) => {
+exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
     if (!req.file) {
         return next();
     }
@@ -45,14 +45,14 @@ exports.resizeUserPhoto = (req, res, next) => {
 
     // image which is in memory can be excess using buffer
     // sharp will resize file and save it in exact location and format
-    sharp(req.file.buffer)
+    await sharp(req.file.buffer)
         .resize(500, 500)
         .toFormat("jpeg")
         .jpeg({ quality: 90 })
         .toFile(`public/img/users/${req.file.filename}`);
 
     next();
-};
+});
 
 const filterObj = (obj, ...allowedFields) => {
     const newObj = {};
