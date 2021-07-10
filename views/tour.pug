@@ -5,6 +5,8 @@ block append head
     //- mapbox libraries
     script(src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js')
     link(href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet')
+    //- stripe 
+    script(src="https://js.stripe.com/v3/")
 
 block content
     section(style="position: relative; height: 23vw;")        
@@ -24,6 +26,11 @@ block content
                 <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
             span &nbsp
             span= tour.startLocation.description
+            br
+            if user
+                a.btn.btn-dark.mt-2#book-tour(data-tour-id=`${tour.id}` role="button" style="position: relative; opacity: 0.8;") Book tour now!
+            else
+                a.btn.btn-dark.mt-2(href="/login" role="button" style="position: relative; opacity: 0.8;") Log in to book tour
 
     .container
         .row
