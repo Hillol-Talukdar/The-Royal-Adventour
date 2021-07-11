@@ -77,6 +77,6 @@ if (bookButton) {
         e.target.textContent = "Processing...";
 
         const { tourId } = e.target.dataset;
-        bookTour(TourId);
+        bookTour(tourId);
     });
 }
