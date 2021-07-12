@@ -10,6 +10,7 @@ const xss = require("xss-clean");
 const hpp = require("hpp");
 const path = require("path");
 const cookieParser = require("cookie-parser");
+const compression = require("compression");
 
 const app = express();
 
@@ -67,6 +68,9 @@ app.use(
         ],
     })
 );
+
+// for compressing response bodies
+app.use(compression());
 
 // Routes
 app.use("/", require("./routes/view"));

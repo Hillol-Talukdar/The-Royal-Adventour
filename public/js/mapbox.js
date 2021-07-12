@@ -1,6 +1,5 @@
 export const displayMap = (locations) => {
-    mapboxgl.accessToken =
-        "pk.eyJ1IjoiaGlsbG9sdGFsdWtkYXIiLCJhIjoiY2txbm9iMWhuMHo5bzJ2cGQxNW80N3FrZCJ9.oiBfZQPPESFyeOG5cB3AAw";
+    mapboxgl.accessToken = `${process.env.MAPBOX_ACCESS_TOKEN}`;
 
     var map = new mapboxgl.Map({
         container: "map",

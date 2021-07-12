@@ -8592,7 +8592,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.displayMap = void 0;
 
 var displayMap = function displayMap(locations) {
-  mapboxgl.accessToken = "pk.eyJ1IjoiaGlsbG9sdGFsdWtkYXIiLCJhIjoiY2txbm9iMWhuMHo5bzJ2cGQxNW80N3FrZCJ9.oiBfZQPPESFyeOG5cB3AAw";
+  mapboxgl.accessToken = "".concat("pk.eyJ1IjoiaGlsbG9sdGFsdWtkYXIiLCJhIjoiY2txbm9iMWhuMHo5bzJ2cGQxNW80N3FrZCJ9.oiBfZQPPESFyeOG5cB3AAw");
   var map = new mapboxgl.Map({
     container: "map",
     style: "mapbox://styles/mapbox/streets-v11"
