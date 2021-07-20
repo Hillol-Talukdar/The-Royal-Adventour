@@ -1,4 +1,5 @@
 import "@babel/polyfill";
+import { signup } from "./signup";
 import { login, logout } from "./login";
 import { displayMap } from "./mapbox";
 import { updateSettings } from "./updateSettings";
@@ -7,6 +8,7 @@ import { bookTour } from "./stripe";
 // DOM elements
 // to prevent running in all pages
 const mapBox = document.getElementById("map");
+const signupForm = document.querySelector("#signup-form");
 const loginForm = document.querySelector("#login-form");
 const logoutBtn = document.querySelector("#logout");
 const userDataForm = document.querySelector("#userDataForm");
@@ -18,6 +20,21 @@ if (mapBox) {
     const locations = JSON.parse(mapBox.dataset.locations);
 
     displayMap(locations);
+}
+
+if (signupForm) {
+    signupForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        document.querySelector("#signupBtn").textContent = "Processing...";
+
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+        signup(name, email, password, confirmPassword);
+    });
 }
 
 if (loginForm) {

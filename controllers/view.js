@@ -35,6 +35,12 @@ exports.loginform = (req, res) => {
     });
 };
 
+exports.signupform = (req, res) => {
+    res.status(200).render("signup", {
+        title: "Sign up",
+    });
+};
+
 exports.getAccount = (req, res) => {
     res.status(200).render("account", {
         title: "My account",

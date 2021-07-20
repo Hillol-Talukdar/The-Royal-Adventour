@@ -1,0 +1,16 @@
+extends base
+
+block content
+    h2.text-center.mt-5.mb-5 Sign up
+    form#signup-form
+        .container.mt-3.mb-5
+            .mb-3
+                input.form-control.text-center#name(type="text" placeholder="Name" required)
+            .mb-3
+                input.form-control.text-center#email(type="email" placeholder="Email" required)
+            .mb-3
+                input.form-control.text-center#password(type="password" placeholder="Password" required)
+            .mb-3
+                input.form-control.text-center#confirmPassword(type="password" placeholder="Confirm password" required)
+            .d-grid.col-5.mx-auto
+                button.btn.btn-primary#signupBtn(type="submit") Sign up
