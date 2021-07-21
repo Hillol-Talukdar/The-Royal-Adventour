@@ -4,6 +4,7 @@ import { login, logout } from "./login";
 import { displayMap } from "./mapbox";
 import { updateSettings } from "./updateSettings";
 import { bookTour } from "./stripe";
+import { deleteReview } from "./review";
 
 // DOM elements
 // to prevent running in all pages
@@ -14,6 +15,7 @@ const logoutBtn = document.querySelector("#logout");
 const userDataForm = document.querySelector("#userDataForm");
 const userPasswordForm = document.querySelector("#userPasswordForm");
 const bookButton = document.getElementById("book-tour");
+const deleteReviewButton = document.getElementById("deleteReviewBtn");
 
 // Delegation
 if (mapBox) {
@@ -95,5 +97,16 @@ if (bookButton) {
 
         const { tourId } = e.target.dataset;
         bookTour(tourId);
+    });
+}
+
+if (deleteReviewButton) {
+    deleteReviewButton.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        e.target.textContent = "Processing...";
+
+        const { reviewId } = e.target.dataset;
+        deleteReview(reviewId);
     });
 }

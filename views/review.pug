@@ -7,10 +7,10 @@ block content
                 .card
                     img.card-img-top(height= '200rem' src=`img/tours/${review.tour.imageCover}` alt=`${review.tour.name}`)
                     .card-body
-                        h5.card-text.text-center=   review.tour.name
-                        h5.card-text=  `User: ${review.user.name}`
-                        h6.card-text=  `Review: ${review.review}`
-                        h6.card-text=  `Rating: ${review.rating}`
+                        h5.card-text.text-center= review.tour.name
+                        h5.card-text= `User: ${review.user.name}`
+                        h6.card-text= `Review: ${review.review}`
+                        h6.card-text= `Rating: ${review.rating}`
 
                     .card-footer
-                        a.btn.btn-danger.d-flex.justify-content-center(href=``) Delete
+                        a.btn.btn-danger.d-flex.justify-content-center#deleteReviewBtn(data-review-id=`${review.id}` role="button") Delete
