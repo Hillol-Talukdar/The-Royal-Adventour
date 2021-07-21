@@ -1,6 +1,7 @@
 const Tour = require("../models/tour");
 const User = require("../models/user");
 const Booking = require("../models/booking");
+const Review = require("../models/review");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 
@@ -83,7 +84,16 @@ exports.getTopTours = catchAsync(async (req, res, next) => {
         .sort({ ratingsAverage: -1, price: 1 });
 
     res.status(200).render("overview", {
-        title: "Top 5 Tours",
+        title: "Top 5 tours",
         tours,
+    });
+});
+
+exports.getAllReviews = catchAsync(async (req, res, next) => {
+    const reviews = await Review.find().populate("tour");
+
+    res.status(200).render("review", {
+        title: "All reviews",
+        reviews,
     });
 });
