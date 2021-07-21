@@ -12,6 +12,7 @@ const {
     getTopTours,
     getAllReviews,
     getManageTours,
+    getCreateTourForm,
 } = require("../controllers/view");
 
 const { isLoggedIn, protect, restrictTo } = require("../controllers/auth");
@@ -30,6 +31,7 @@ router.get("/my-tours", protect, getMyTours);
 
 router.get("/all-reviews", protect, restrictTo("admin"), getAllReviews);
 router.get("/manage-tours", protect, restrictTo("admin"), getManageTours);
+router.get("/create-new-tour", protect, restrictTo("admin"), getCreateTourForm);
 
 router.post("/submit-user-data", protect, updateUserData);
 

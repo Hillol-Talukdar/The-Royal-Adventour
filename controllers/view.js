@@ -106,3 +106,9 @@ exports.getManageTours = catchAsync(async (req, res, next) => {
         tours,
     });
 });
+
+exports.getCreateTourForm = (req, res, next) => {
+    res.status(200).render("createTour", {
+        title: "Create new Tour",
+    });
+};
