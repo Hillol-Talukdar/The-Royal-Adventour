@@ -11,6 +11,7 @@ const {
     signupform,
     getTopTours,
     getAllReviews,
+    getManageTours,
 } = require("../controllers/view");
 
 const { isLoggedIn, protect, restrictTo } = require("../controllers/auth");
@@ -28,6 +29,7 @@ router.get("/me", protect, getAccount);
 router.get("/my-tours", protect, getMyTours);
 
 router.get("/all-reviews", protect, restrictTo("admin"), getAllReviews);
+router.get("/manage-tours", protect, restrictTo("admin"), getManageTours);
 
 router.post("/submit-user-data", protect, updateUserData);
 

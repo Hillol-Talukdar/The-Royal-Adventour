@@ -97,3 +97,12 @@ exports.getAllReviews = catchAsync(async (req, res, next) => {
         reviews,
     });
 });
+
+exports.getManageTours = catchAsync(async (req, res, next) => {
+    const tours = await Tour.find();
+
+    res.status(200).render("manageTours", {
+        title: "Manage Tours",
+        tours,
+    });
+});
