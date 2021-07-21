@@ -76,3 +76,14 @@ exports.updateUserData = catchAsync(async (req, res, next) => {
         user: updatedUser,
     });
 });
+
+exports.getTopTours = catchAsync(async (req, res, next) => {
+    const tours = await Tour.find()
+        .limit(5)
+        .sort({ ratingsAverage: -1, price: 1 });
+
+    res.status(200).render("overview", {
+        title: "Top 5 Tours",
+        tours,
+    });
+});
