@@ -1,6 +1,9 @@
 extends base
 
 block content
+    .container.mt-3
+        a.btn.btn-success.d-flex.justify-content-center.mx-5(href=`#`) Create new Tour
+
     .row.row-cols-1.row-cols-md-3.g-4.mx-5.mb-4.mt-2
         each tour in tours
             .col
