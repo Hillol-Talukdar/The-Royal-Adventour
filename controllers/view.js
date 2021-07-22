@@ -112,3 +112,12 @@ exports.getCreateTourForm = (req, res, next) => {
         title: "Create new Tour",
     });
 };
+
+exports.updateTourForm = catchAsync(async (req, res, next) => {
+    const tour = await Tour.findOne({ slug: req.params.slug });
+
+    res.status(200).render("updateTour", {
+        title: "Update Tour",
+        tour,
+    });
+});
