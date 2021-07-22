@@ -5,7 +5,7 @@ import { displayMap } from "./mapbox";
 import { updateSettings } from "./updateSettings";
 import { bookTour } from "./stripe";
 import { deleteReview } from "./review";
-import { updateTour } from "./tour";
+import { updateTour, createTour } from "./tour";
 
 // DOM elements
 // to prevent running in all pages
@@ -21,6 +21,7 @@ const userPasswordForm = document.querySelector("#userPasswordForm");
 
 const deleteReviewButton = document.getElementById("deleteReviewBtn");
 const updateTourForm = document.querySelector("#updateTourForm");
+const createTourForm = document.querySelector("#createTourForm");
 
 // Delegation
 if (mapBox) {
@@ -117,12 +118,8 @@ if (deleteReviewButton) {
 }
 
 if (updateTourForm) {
-    console.log("HI");
-
     updateTourForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-
-        console.log("HELLO");
 
         document.querySelector("#updateTourBtn").textContent = "Updating...";
 
@@ -144,8 +141,42 @@ if (updateTourForm) {
 
         const { tourId } = e.target.dataset;
 
+        console.log(tourId);
+
         updateTour(form, tourId);
 
         document.querySelector("#updateTourBtn").textContent = "Update";
+    });
+}
+
+if (createTourForm) {
+    console.log("HI");
+
+    createTourForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        console.log("HELLO");
+
+        document.querySelector("#createTourBtn").textContent = "Processing...";
+
+        const form = new FormData();
+        form.append("name", document.getElementById("name").value);
+        form.append("duration", document.getElementById("duration").value);
+        form.append(
+            "maxGroupSize",
+            document.getElementById("maxGroupSize").value
+        );
+        form.append("difficulty", document.getElementById("difficulty").value);
+        form.append("price", document.getElementById("price").value);
+        form.append(
+            "description",
+            document.getElementById("description").value
+        );
+        form.append("summary", document.getElementById("summary").value);
+        // form.append("imageCover", document.getElementById("imageCover").files[0]);
+
+        createTour(form);
+
+        document.querySelector("#createTourBtn").textContent = "Create";
     });
 }

@@ -2,7 +2,7 @@ extends base
 
 block content
     h2.text-center.mt-2.mb-2 Update Tour
-    form#updateTourForm
+    form#updateTourForm(data-tour-id=tour.id)
         .container.mt-3.mb-5
             .mb-3
                 label.form-label(for="name") Name
@@ -33,4 +33,6 @@ block content
             //-     input.form-control.mt-2#images(type='file' accept='image/*' name='images')
 
             .d-grid.col-5.mx-auto
-                button.btn.btn-primary#updateTourBtn(data-tour-id=`${tour.id}`, type="submit") Update
+                button.btn.btn-primary#updateTourBtn(type="submit") Update
+                //- button.btn.btn-primary#updateTourBtn(data-tour-id=tour.id type="submit") Update
+                //- a.btn.btn-primary#updateTourBtn(data-tour-id=`${tour.id}` role="button" type="submit") Update

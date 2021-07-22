@@ -1,7 +1,6 @@
 import axios from "axios";
 import { showAlert } from "./alerts";
 
-// type= password or data
 export const updateTour = async (data, tourId) => {
     try {
         const res = await axios({
@@ -10,9 +9,26 @@ export const updateTour = async (data, tourId) => {
             data,
         });
 
-        if (res.data.status === "success") {
-            location.assign("/");
+        if (res.data.status === "Success") {
+            location.assign("/manage-tours");
             showAlert("success", "Tour updated successfully!");
+        }
+    } catch (error) {
+        showAlert("danger", error.response.data.message);
+    }
+};
+
+export const createTour = async (data) => {
+    try {
+        const res = await axios({
+            method: "POST",
+            url: "http://localhost:8000/api/tour",
+            data,
+        });
+
+        if (res.data.status === "Success") {
+            location.assign("/manage-tours");
+            showAlert("success", "Tour created successfully!");
         }
     } catch (error) {
         showAlert("danger", error.response.data.message);
