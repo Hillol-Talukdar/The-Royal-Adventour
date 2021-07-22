@@ -5,17 +5,22 @@ import { displayMap } from "./mapbox";
 import { updateSettings } from "./updateSettings";
 import { bookTour } from "./stripe";
 import { deleteReview } from "./review";
+import { updateTour } from "./tour";
 
 // DOM elements
 // to prevent running in all pages
 const mapBox = document.getElementById("map");
+const bookButton = document.getElementById("book-tour");
+
 const signupForm = document.querySelector("#signup-form");
 const loginForm = document.querySelector("#login-form");
 const logoutBtn = document.querySelector("#logout");
+
 const userDataForm = document.querySelector("#userDataForm");
 const userPasswordForm = document.querySelector("#userPasswordForm");
-const bookButton = document.getElementById("book-tour");
+
 const deleteReviewButton = document.getElementById("deleteReviewBtn");
+const updateTourForm = document.querySelector("#updateTourForm");
 
 // Delegation
 if (mapBox) {
@@ -108,5 +113,39 @@ if (deleteReviewButton) {
 
         const { reviewId } = e.target.dataset;
         deleteReview(reviewId);
+    });
+}
+
+if (updateTourForm) {
+    console.log("HI");
+
+    updateTourForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        console.log("HELLO");
+
+        document.querySelector("#updateTourBtn").textContent = "Updating...";
+
+        const form = new FormData();
+        form.append("name", document.getElementById("name").value);
+        form.append("duration", document.getElementById("duration").value);
+        form.append(
+            "maxGroupSize",
+            document.getElementById("maxGroupSize").value
+        );
+        form.append("difficulty", document.getElementById("difficulty").value);
+        form.append("price", document.getElementById("price").value);
+        form.append(
+            "description",
+            document.getElementById("description").value
+        );
+        form.append("summary", document.getElementById("summary").value);
+        // form.append("imageCover", document.getElementById("imageCover").files[0]);
+
+        const { tourId } = e.target.dataset;
+
+        updateTour(form, tourId);
+
+        document.querySelector("#updateTourBtn").textContent = "Update";
     });
 }
