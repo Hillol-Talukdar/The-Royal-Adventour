@@ -9438,16 +9438,14 @@ if (updateTourForm) {
 }
 
 if (createTourForm) {
-  console.log("HI");
   createTourForm.addEventListener("submit", /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(e) {
-      var form;
+      var form, index;
       return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
               e.preventDefault();
-              console.log("HELLO");
               document.querySelector("#createTourBtn").textContent = "Processing...";
               form = new FormData();
               form.append("name", document.getElementById("name").value);
@@ -9456,12 +9454,24 @@ if (createTourForm) {
               form.append("difficulty", document.getElementById("difficulty").value);
               form.append("price", document.getElementById("price").value);
               form.append("description", document.getElementById("description").value);
-              form.append("summary", document.getElementById("summary").value); // form.append("imageCover", document.getElementById("imageCover").files[0]);
+              form.append("summary", document.getElementById("summary").value);
 
+              if (document.getElementById("imageCover").files.length != 0) {
+                form.append("imageCover", document.getElementById("imageCover").files[0]);
+              }
+
+              if (document.getElementById("images").files.length != 0) {
+                for (index = 0; index < document.getElementById("images").files.length; index++) {
+                  form.append("images", document.getElementById("images").files[index]);
+                }
+              }
+
+              form.append("startLocation.coordinates", document.getElementById("stCoordinates").value);
+              form.append("startLocation.description", document.getElementById("stDescription").value);
+              form.append("startLocation.address", document.getElementById("stAddress").value);
               (0, _tour.createTour)(form);
-              document.querySelector("#createTourBtn").textContent = "Create";
 
-            case 13:
+            case 16:
             case "end":
               return _context3.stop();
           }
@@ -9502,7 +9512,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61725" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65296" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
