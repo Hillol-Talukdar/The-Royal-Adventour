@@ -9394,7 +9394,7 @@ if (deleteReviewButton) {
 if (updateTourForm) {
   updateTourForm.addEventListener("submit", /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(e) {
-      var form, tourId;
+      var form, index, tourId;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -9408,12 +9408,20 @@ if (updateTourForm) {
               form.append("difficulty", document.getElementById("difficulty").value);
               form.append("price", document.getElementById("price").value);
               form.append("description", document.getElementById("description").value);
-              form.append("summary", document.getElementById("summary").value); // form.append("imageCover", document.getElementById("imageCover").files[0]);
+              form.append("summary", document.getElementById("summary").value);
+
+              if (document.getElementById("imageCover").files.length != 0) {
+                form.append("imageCover", document.getElementById("imageCover").files[0]);
+              }
+
+              if (document.getElementById("images").files.length != 0) {
+                for (index = 0; index < document.getElementById("images").files.length; index++) {
+                  form.append("images", document.getElementById("images").files[index]);
+                }
+              }
 
               tourId = e.target.dataset.tourId;
-              console.log(tourId);
               (0, _tour.updateTour)(form, tourId);
-              document.querySelector("#updateTourBtn").textContent = "Update";
 
             case 14:
             case "end":
@@ -9494,7 +9502,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53682" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61725" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
