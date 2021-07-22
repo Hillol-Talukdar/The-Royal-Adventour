@@ -126,26 +126,45 @@ if (updateTourForm) {
         const form = new FormData();
         form.append("name", document.getElementById("name").value);
         form.append("duration", document.getElementById("duration").value);
+
         form.append(
             "maxGroupSize",
             document.getElementById("maxGroupSize").value
         );
+
         form.append("difficulty", document.getElementById("difficulty").value);
         form.append("price", document.getElementById("price").value);
+
         form.append(
             "description",
             document.getElementById("description").value
         );
+
         form.append("summary", document.getElementById("summary").value);
-        // form.append("imageCover", document.getElementById("imageCover").files[0]);
+
+        if (document.getElementById("imageCover").files.length != 0) {
+            form.append(
+                "imageCover",
+                document.getElementById("imageCover").files[0]
+            );
+        }
+
+        if (document.getElementById("images").files.length != 0) {
+            for (
+                let index = 0;
+                index < document.getElementById("images").files.length;
+                index++
+            ) {
+                form.append(
+                    "images",
+                    document.getElementById("images").files[index]
+                );
+            }
+        }
 
         const { tourId } = e.target.dataset;
 
-        console.log(tourId);
-
         updateTour(form, tourId);
-
-        document.querySelector("#updateTourBtn").textContent = "Update";
     });
 }
 
