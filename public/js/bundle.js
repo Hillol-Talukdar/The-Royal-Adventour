@@ -9440,7 +9440,7 @@ if (updateTourForm) {
 if (createTourForm) {
   createTourForm.addEventListener("submit", /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(e) {
-      var form, index;
+      var form, index, coords, lat, lng, startDates;
       return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -9466,12 +9466,18 @@ if (createTourForm) {
                 }
               }
 
-              form.append("startLocation.coordinates", document.getElementById("stCoordinates").value);
+              coords = document.getElementById("stCoordinates").value;
+              lat = parseFloat(coords.split(",")[0]);
+              lng = parseFloat(coords.split(",")[1]);
+              form.append("startLocation.coordinates", lat);
+              form.append("startLocation.coordinates", lng);
               form.append("startLocation.description", document.getElementById("stDescription").value);
               form.append("startLocation.address", document.getElementById("stAddress").value);
+              startDates = document.getElementById("startDates").value;
+              form.append("startDates", startDates);
               (0, _tour.createTour)(form);
 
-            case 16:
+            case 22:
             case "end":
               return _context3.stop();
           }
@@ -9512,7 +9518,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65296" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57942" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

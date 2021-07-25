@@ -6,16 +6,16 @@ block content
         .container.mt-3.mb-5
             .mb-3
                 label.form-label(for="name") Name
-                input.form-control#name(type="text" name="name", required)
+                input.form-control#name(type="text" name="name" required)
             .mb-3
                 label.form-label(for="duration") Duration
-                input.form-control#duration(type="number" name="duration", required)
+                input.form-control#duration(type="number" name="duration" required)
             .mb-3
                 label.form-label(for="maxGroupSize") Max group size
-                input.form-control#maxGroupSize(type="number" name="maxGroupSize", required)
+                input.form-control#maxGroupSize(type="number" name="maxGroupSize" required)
             .mb-3
                 label.form-label(for="difficulty") Difficulty
-                input.form-control#difficulty(type="text" name="difficulty", required)
+                input.form-control#difficulty(type="text" name="difficulty" required)
             .mb-3
                 label.form-label(for="price") Price
                 input.form-control#price(type="number" name="price", required)
@@ -24,23 +24,27 @@ block content
                 textarea.form-control#description( type="text" name="description", required)
             .mb-3
                 label.form-label(for="summary") Summary
-                input.form-control#summary(type="text" name="summary", required)
+                input.form-control#summary(type="text" name="summary" required)
             .mb-3
                 label.form-label(for="imageCover") Cover image
                 input.form-control.mt-2#imageCover(type='file' accept='image/*' name='imageCover')
             .mb-3
                 label.form-label(for="images") Images
                 input.form-control.mt-2#images(type='file',multiple, accept='image/*' name='images')
-            
+
             .mb-3
                 label.form-label(for="stCoordinates") Start-Location coordinates
-                input.form-control.mt-2#stCoordinates(type='Point', name="startLocation.coordinates", required)
+                input.form-control.mt-2#stCoordinates(type='text' name="startLocation.coordinates" placeholder="lat,lng" required)
             .mb-3
                 label.form-label(for="stDescription") Start-Location description
-                input.form-control.mt-2#stDescription(type='text', name="startLocation.description", required)
+                input.form-control.mt-2#stDescription(type='text' name="startLocation.description" required)
             .mb-3
                 label.form-label(for="stAddress") Start-Location address
-                input.form-control.mt-2#stAddress(type='text', name="startLocation.address", required)
+                input.form-control.mt-2#stAddress(type='text' name="startLocation.address" required)
+
+            .mb-3
+                label.form-label(for="startDates") Start dates
+                input.form-control.mt-2#startDates(type='datetime-local' name="startDates" required)
 
             .d-grid.col-5.mx-auto
                 button.btn.btn-primary#createTourBtn(type="submit") Create

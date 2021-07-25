@@ -213,18 +213,26 @@ if (createTourForm) {
             }
         }
 
-        form.append(
-            "startLocation.coordinates",
-            document.getElementById("stCoordinates").value
-        );
+        let coords = document.getElementById("stCoordinates").value;
+        let lat = parseFloat(coords.split(",")[0]);
+        let lng = parseFloat(coords.split(",")[1]);
+
+        form.append("startLocation.coordinates", lat);
+        form.append("startLocation.coordinates", lng);
+
         form.append(
             "startLocation.description",
             document.getElementById("stDescription").value
         );
+
         form.append(
             "startLocation.address",
             document.getElementById("stAddress").value
         );
+
+        let startDates = document.getElementById("startDates").value;
+
+        form.append("startDates", startDates);
 
         createTour(form);
     });
