@@ -115,9 +115,11 @@ exports.getCreateTourForm = (req, res, next) => {
 
 exports.updateTourForm = catchAsync(async (req, res, next) => {
     const tour = await Tour.findOne({ slug: req.params.slug });
+    const user = await User.findById(req.user.id);
 
     res.status(200).render("updateTour", {
         title: "Update Tour",
         tour,
+        user,
     });
 });
