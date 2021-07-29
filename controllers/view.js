@@ -20,6 +20,14 @@ exports.getTour = catchAsync(async (req, res, next) => {
         field: "review rating user",
     });
 
+    let review;
+    if (res.locals.user) {
+        review = await Review.findOne({
+            tour: tour.id,
+            user: res.locals.user.id,
+        });
+    }
+
     if (!tour) {
         return next(new AppError("No tour found with that name!", 404));
     }
@@ -27,6 +35,7 @@ exports.getTour = catchAsync(async (req, res, next) => {
     res.status(200).render("tour", {
         title: `${tour.name} Tour`,
         tour,
+        review,
     });
 });
 
@@ -115,11 +124,9 @@ exports.getCreateTourForm = (req, res, next) => {
 
 exports.updateTourForm = catchAsync(async (req, res, next) => {
     const tour = await Tour.findOne({ slug: req.params.slug });
-    const user = await User.findById(req.user.id);
 
     res.status(200).render("updateTour", {
         title: "Update Tour",
         tour,
-        user,
     });
 });

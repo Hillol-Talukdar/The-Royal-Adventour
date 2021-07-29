@@ -94,17 +94,33 @@ block content
     .container 
         h4.mt-4 Create Review
             .form#createReviewForm
-                label.form-label.d-flex.justify-content-center.mb-3(for="createReviewTextArea") Write a review
-                textarea.form-control.d-flex.justify-content-center.mb-3#createReviewTextArea
-                label.form-label.d-flex.justify-content-center.mb-3(for="tourRating") Rating
-                input.form-control.d-flex.justify-content-center.mb-3#tourRating(type="number" min="0" max="5" step="0.5")
-
                 if user
-                    .d-grid.col-5.mx-auto
-                        button.btn.btn-primary.mb-3#createTourBtn(type="submit") Create
+                    if review
+                        label.form-label.d-flex.justify-content-center.mb-3(for="createReviewTextArea") Write a review
+                        textarea.form-control.d-flex.justify-content-center.mb-3#createReviewTextArea= review.review
+                        label.form-label.d-flex.justify-content-center.mb-3(for="tourRating") Rating
+                        input.form-control.d-flex.justify-content-center.mb-3#tourRating(type="number" min="0" max="5" step="0.5" value= review.rating)
+                        
+                        .d-grid.col-5.mx-auto
+                                button.btn.btn-primary.mb-3#createTourBtn(type="submit") Update review
+
+                    else 
+                        label.form-label.d-flex.justify-content-center.mb-3(for="createReviewTextArea") Write a review
+                        textarea.form-control.d-flex.justify-content-center.mb-3#createReviewTextArea
+                        label.form-label.d-flex.justify-content-center.mb-3(for="tourRating") Rating
+                        input.form-control.d-flex.justify-content-center.mb-3#tourRating(type="number" min="0" max="5" step="0.5")
+
+                        .d-grid.col-5.mx-auto
+                                button.btn.btn-primary.mb-3#createTourBtn(type="submit") Create review
+   
                 else
+                    label.form-label.d-flex.justify-content-center.mb-3(for="createReviewTextArea") Write a review
+                    textarea.form-control.d-flex.justify-content-center.mb-3#createReviewTextArea
+                    label.form-label.d-flex.justify-content-center.mb-3(for="tourRating") Rating
+                    input.form-control.d-flex.justify-content-center.mb-3#tourRating(type="number" min="0" max="5" step="0.5")
+
                     .d-grid.col-5.mx-auto
-                        button.btn.btn-primary.mb-3#createTourBtn(type="submit" disabled) Login to submit a review
+                            button.btn.btn-primary.mb-3#createTourBtn(type="submit" disabled) Login to submit a review
 
 
     .container 
