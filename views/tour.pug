@@ -93,34 +93,45 @@ block content
 
     .container 
         h4.mt-4 Create Review
-            .form#createReviewForm
-                if user
-                    if review
-                        label.form-label.d-flex.justify-content-center.mb-3(for="createReviewTextArea") Write a review
-                        textarea.form-control.d-flex.justify-content-center.mb-3#createReviewTextArea= review.review
-                        label.form-label.d-flex.justify-content-center.mb-3(for="tourRating") Rating
-                        input.form-control.d-flex.justify-content-center.mb-3#tourRating(type="number" min="0" max="5" step="0.5" value= review.rating)
-                        
-                        .d-grid.col-5.mx-auto
-                                button.btn.btn-primary.mb-3#createTourBtn(type="submit") Update review
+            if user
+                if review
+                    form#updateReviewForm(data-review-id=review.id)
+                        .container.mt-3.mb-5
+                            .mb-3
+                                label.form-label.d-flex.justify-content-center(for="review") Write a review
+                                textarea.form-control.d-flex.justify-content-center#review(type="text" name="review" required)= `${review.review}`
+                            .mb-3
+                                label.form-label.d-flex.justify-content-center(for="rating") Rating
+                                input.form-control.d-flex.justify-content-center#rating(type="number" min="0" max="5" step="0.5" name="rating" value= review.rating required)
 
-                    else 
-                        label.form-label.d-flex.justify-content-center.mb-3(for="createReviewTextArea") Write a review
-                        textarea.form-control.d-flex.justify-content-center.mb-3#createReviewTextArea
-                        label.form-label.d-flex.justify-content-center.mb-3(for="tourRating") Rating
-                        input.form-control.d-flex.justify-content-center.mb-3#tourRating(type="number" min="0" max="5" step="0.5")
+                            .d-grid.col-5.mx-auto
+                                button.btn.btn-primary.mb-3#reviewBtn(type="submit") Update review
 
-                        .d-grid.col-5.mx-auto
-                                button.btn.btn-primary.mb-3#createTourBtn(type="submit") Create review
-   
                 else
-                    label.form-label.d-flex.justify-content-center.mb-3(for="createReviewTextArea") Write a review
-                    textarea.form-control.d-flex.justify-content-center.mb-3#createReviewTextArea
-                    label.form-label.d-flex.justify-content-center.mb-3(for="tourRating") Rating
-                    input.form-control.d-flex.justify-content-center.mb-3#tourRating(type="number" min="0" max="5" step="0.5")
+                    form#createReviewForm(data-tour-id=`${tour.id}`, data-user-id=`${user.id}`)
+                        .container.mt-3.mb-5
+                            .mb-3
+                                label.form-label.d-flex.justify-content-center(for="review") Write a review
+                                textarea.form-control.d-flex.justify-content-center#review(type="text" name="review" required)
+                            .mb-3
+                                label.form-label.d-flex.justify-content-center(for="rating") Rating
+                                input.form-control.d-flex.justify-content-center#rating(type="number" min="0" max="5" step="0.5" name="rating" required)
 
-                    .d-grid.col-5.mx-auto
-                            button.btn.btn-primary.mb-3#createTourBtn(type="submit" disabled) Login to submit a review
+                            .d-grid.col-5.mx-auto
+                                button.btn.btn-primary.mb-3#reviewBtn(type="submit") Create review
+
+            else
+                form#reviewForm
+                    .container.mt-3.mb-5
+                        .mb-3
+                            label.form-label.d-flex.justify-content-center(for="review") Write a review
+                            textarea.form-control.d-flex.justify-content-center#review(name="review" required)
+                        .mb-3
+                            label.form-label.d-flex.justify-content-center(for="rating") Rating
+                            input.form-control.d-flex.justify-content-center#rating(type="number" min="0" max="5" step="0.5" name="rating" required)
+
+                        .d-grid.col-5.mx-auto
+                            button.btn.btn-primary.mb-3#reviewBtn(type="submit" disabled) Login to submit a review
 
 
     .container 

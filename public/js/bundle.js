@@ -8824,7 +8824,7 @@ exports.bookTour = bookTour;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.deleteReview = void 0;
+exports.createReview = exports.updateReview = exports.deleteReview = void 0;
 
 var _axios = _interopRequireDefault(require("axios"));
 
@@ -8886,6 +8886,101 @@ var deleteReview = /*#__PURE__*/function () {
 }();
 
 exports.deleteReview = deleteReview;
+
+var updateReview = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(review, rating, reviewId) {
+    var res;
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.prev = 0;
+            _context2.next = 3;
+            return (0, _axios.default)({
+              method: "PATCH",
+              url: "http://localhost:8000/api/review/".concat(reviewId),
+              data: {
+                review: review,
+                rating: rating
+              }
+            });
+
+          case 3:
+            res = _context2.sent;
+
+            if (res.data.status === "Success") {
+              location.reload();
+              (0, _alerts.showAlert)("success", "Review updated successfully!");
+            }
+
+            _context2.next = 10;
+            break;
+
+          case 7:
+            _context2.prev = 7;
+            _context2.t0 = _context2["catch"](0);
+            (0, _alerts.showAlert)("danger", _context2.t0.response.data.message);
+
+          case 10:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[0, 7]]);
+  }));
+
+  return function updateReview(_x2, _x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+exports.updateReview = updateReview;
+
+var createReview = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(data) {
+    var res;
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.prev = 0;
+            _context3.next = 3;
+            return (0, _axios.default)({
+              method: "POST",
+              url: "http://localhost:8000/api/review",
+              data: data
+            });
+
+          case 3:
+            res = _context3.sent;
+
+            if (res.data.status === "Success") {
+              location.reload();
+              (0, _alerts.showAlert)("success", "Review created successfully!");
+            }
+
+            _context3.next = 10;
+            break;
+
+          case 7:
+            _context3.prev = 7;
+            _context3.t0 = _context3["catch"](0);
+            (0, _alerts.showAlert)("danger", _context3.t0.response.data.message);
+
+          case 10:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3, null, [[0, 7]]);
+  }));
+
+  return function createReview(_x5) {
+    return _ref3.apply(this, arguments);
+  };
+}();
+
+exports.createReview = createReview;
 },{"axios":"../../node_modules/axios/index.js","./alerts":"alerts.js"}],"tour.js":[function(require,module,exports) {
 "use strict";
 
@@ -9290,6 +9385,8 @@ var logoutBtn = document.querySelector("#logout");
 var userDataForm = document.querySelector("#userDataForm");
 var userPasswordForm = document.querySelector("#userPasswordForm");
 var deleteReviewButton = document.getElementById("deleteReviewBtn");
+var updateReviewForm = document.querySelector("#updateReviewForm");
+var createReviewForm = document.querySelector("#createReviewForm");
 var updateTourForm = document.querySelector("#updateTourForm");
 var createTourForm = document.querySelector("#createTourForm"); // Delegation
 
@@ -9391,13 +9488,73 @@ if (deleteReviewButton) {
   });
 }
 
-if (updateTourForm) {
-  updateTourForm.addEventListener("submit", /*#__PURE__*/function () {
+if (createReviewForm) {
+  createReviewForm.addEventListener("submit", /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(e) {
-      var form, index, tourId;
+      var form, _e$target$dataset, tourId, userId;
+
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
+            case 0:
+              e.preventDefault();
+              form = new FormData();
+              form.append("review", document.getElementById("review").value);
+              form.append("rating", document.getElementById("rating").value);
+              _e$target$dataset = e.target.dataset, tourId = _e$target$dataset.tourId, userId = _e$target$dataset.userId;
+              form.append("tour", tourId);
+              form.append("user", userId);
+              (0, _review.createReview)(form);
+
+            case 8:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }());
+}
+
+if (updateReviewForm) {
+  updateReviewForm.addEventListener("submit", /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(e) {
+      var review, rating, reviewId;
+      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              e.preventDefault();
+              review = document.getElementById("review").value;
+              rating = document.getElementById("rating").value;
+              reviewId = e.target.dataset.reviewId;
+              (0, _review.updateReview)(review, rating, reviewId);
+
+            case 5:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }());
+}
+
+if (updateTourForm) {
+  updateTourForm.addEventListener("submit", /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(e) {
+      var form, index, tourId;
+      return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
             case 0:
               e.preventDefault();
               document.querySelector("#updateTourBtn").textContent = "Updating...";
@@ -9425,25 +9582,25 @@ if (updateTourForm) {
 
             case 14:
             case "end":
-              return _context2.stop();
+              return _context4.stop();
           }
         }
-      }, _callee2);
+      }, _callee4);
     }));
 
-    return function (_x2) {
-      return _ref2.apply(this, arguments);
+    return function (_x4) {
+      return _ref4.apply(this, arguments);
     };
   }());
 }
 
 if (createTourForm) {
   createTourForm.addEventListener("submit", /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(e) {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(e) {
       var form, index, coords, lat, lng, startDates;
-      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      return regeneratorRuntime.wrap(function _callee5$(_context5) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
               e.preventDefault();
               document.querySelector("#createTourBtn").textContent = "Processing...";
@@ -9479,14 +9636,14 @@ if (createTourForm) {
 
             case 22:
             case "end":
-              return _context3.stop();
+              return _context5.stop();
           }
         }
-      }, _callee3);
+      }, _callee5);
     }));
 
-    return function (_x3) {
-      return _ref3.apply(this, arguments);
+    return function (_x5) {
+      return _ref5.apply(this, arguments);
     };
   }());
 }
@@ -9518,7 +9675,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57942" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52739" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

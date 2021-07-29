@@ -4,7 +4,7 @@ import { login, logout } from "./login";
 import { displayMap } from "./mapbox";
 import { updateSettings } from "./updateSettings";
 import { bookTour } from "./stripe";
-import { deleteReview } from "./review";
+import { deleteReview, createReview, updateReview } from "./review";
 import { updateTour, createTour } from "./tour";
 
 // DOM elements
@@ -20,6 +20,9 @@ const userDataForm = document.querySelector("#userDataForm");
 const userPasswordForm = document.querySelector("#userPasswordForm");
 
 const deleteReviewButton = document.getElementById("deleteReviewBtn");
+const updateReviewForm = document.querySelector("#updateReviewForm");
+const createReviewForm = document.querySelector("#createReviewForm");
+
 const updateTourForm = document.querySelector("#updateTourForm");
 const createTourForm = document.querySelector("#createTourForm");
 
@@ -114,6 +117,37 @@ if (deleteReviewButton) {
 
         const { reviewId } = e.target.dataset;
         deleteReview(reviewId);
+    });
+}
+
+if (createReviewForm) {
+    createReviewForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const form = new FormData();
+        form.append("review", document.getElementById("review").value);
+
+        form.append("rating", document.getElementById("rating").value);
+
+        const { tourId, userId } = e.target.dataset;
+
+        form.append("tour", tourId);
+        form.append("user", userId);
+
+        createReview(form);
+    });
+}
+
+if (updateReviewForm) {
+    updateReviewForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const review = document.getElementById("review").value;
+        const rating = document.getElementById("rating").value;
+
+        const { reviewId } = e.target.dataset;
+
+        updateReview(review, rating, reviewId);
     });
 }
 
