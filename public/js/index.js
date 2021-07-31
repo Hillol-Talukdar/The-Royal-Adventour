@@ -124,17 +124,15 @@ if (createReviewForm) {
     createReviewForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const form = new FormData();
-        form.append("review", document.getElementById("review").value);
-
-        form.append("rating", document.getElementById("rating").value);
+        const review = document.getElementById("review").value;
+        const rating = document.getElementById("rating").value;
 
         const { tourId, userId } = e.target.dataset;
 
-        form.append("tour", tourId);
-        form.append("user", userId);
+        const tour = tourId
+        const user = userId;
 
-        createReview(form);
+        createReview(review, rating, tour, user);
     });
 }
 

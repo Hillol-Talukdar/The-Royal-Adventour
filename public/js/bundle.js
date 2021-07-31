@@ -8937,7 +8937,7 @@ var updateReview = /*#__PURE__*/function () {
 exports.updateReview = updateReview;
 
 var createReview = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(data) {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(review, rating, tour, user) {
     var res;
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
@@ -8948,7 +8948,12 @@ var createReview = /*#__PURE__*/function () {
             return (0, _axios.default)({
               method: "POST",
               url: "http://localhost:8000/api/review",
-              data: data
+              data: {
+                review: review,
+                rating: rating,
+                tour: tour,
+                user: user
+              }
             });
 
           case 3:
@@ -8975,7 +8980,7 @@ var createReview = /*#__PURE__*/function () {
     }, _callee3, null, [[0, 7]]);
   }));
 
-  return function createReview(_x5) {
+  return function createReview(_x5, _x6, _x7, _x8) {
     return _ref3.apply(this, arguments);
   };
 }();
@@ -9491,22 +9496,21 @@ if (deleteReviewButton) {
 if (createReviewForm) {
   createReviewForm.addEventListener("submit", /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(e) {
-      var form, _e$target$dataset, tourId, userId;
+      var review, rating, _e$target$dataset, tourId, userId, tour, user;
 
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               e.preventDefault();
-              form = new FormData();
-              form.append("review", document.getElementById("review").value);
-              form.append("rating", document.getElementById("rating").value);
+              review = document.getElementById("review").value;
+              rating = document.getElementById("rating").value;
               _e$target$dataset = e.target.dataset, tourId = _e$target$dataset.tourId, userId = _e$target$dataset.userId;
-              form.append("tour", tourId);
-              form.append("user", userId);
-              (0, _review.createReview)(form);
+              tour = tourId;
+              user = userId;
+              (0, _review.createReview)(review, rating, tour, user);
 
-            case 8:
+            case 7:
             case "end":
               return _context2.stop();
           }
@@ -9675,7 +9679,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52739" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52460" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -49,12 +49,17 @@ export const updateReview = async (review, rating, reviewId) => {
     }
 };
 
-export const createReview = async (data) => {
+export const createReview = async (review, rating, tour, user) => {
     try {
         const res = await axios({
             method: "POST",
             url: "http://localhost:8000/api/review",
-            data,
+            data: {
+                review,
+                rating,
+                tour,
+                user,
+            },
         });
 
         if (res.data.status === "Success") {
